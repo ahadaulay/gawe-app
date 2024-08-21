@@ -3,14 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable,HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +22,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
+        'occupation',
+        'connect'
     ];
 
     /**
@@ -42,4 +46,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function wallet(){
+        return $this->hasOne(Wallet::class);
+    }
+
+    public function projects(){
+        return $this->hasMany(Project::class,'client_id','id')->orderByDesc('id');
+    }
+
+    public function proposals(){
+        return $this->hasMany(ProjectApplicant::class,'freelancer_id','id')->orderByDesc('id');
+    }
+
+    public function hasAppliedToProject($projectId){
+        return ProjectApplicant::where('project_id',$projectId)
+        ->where('freelancer_id',$this->id)
+        ->exists();
+    }
 }

@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
         @csrf
 
         <!-- Name -->
@@ -8,6 +8,32 @@
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
+
+        <!-- Occupation -->
+        <div class="mt-4">
+            <x-input-label for="occupation" :value="__('Occupation')" />
+            <x-text-input id="occupation" class="block mt-1 w-full" type="text" name="occupation" :value="old('occupation')" required autofocus autocomplete="occupation" />
+            <x-input-error :messages="$errors->get('occupation')" class="mt-2" />
+        </div>
+
+        <!-- Avatar -->
+        <div class="mt-4">
+            <x-input-label for="avatar" :value="__('Avatar')" />
+            <x-text-input id="avatar" class="block mt-1 w-full" type="file" name="avatar" :value="old('avatar')" required autofocus autocomplete="avatar" />
+            <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
+        </div>
+
+        <!-- Role -->
+        <div class="mt-4">
+            <x-input-label for="role" :value="__('Role')" />
+            <select id="role" class="block mt-1 w-full rounded-lg border border-slate-300" name="role" :value="old('role')" required>
+                <option value="">Choose Role</option>
+                <option value="project_freelance">Freelancer</option>
+                <option value="project_client">Client</option>
+            </select>
+            <x-input-error :messages="$errors->get('role')" class="mt-2" />
+        </div>
+
 
         <!-- Email Address -->
         <div class="mt-4">
