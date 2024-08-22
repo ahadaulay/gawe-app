@@ -23,24 +23,26 @@
                         </svg>
                         <div>
                             <p class="text-slate-500 text-sm">Total Amount</p>
-                            <h3 class="text-indigo-950 text-xl font-bold">Rp 0</h3>
+                            <h3 class="text-indigo-950 text-xl font-bold">Rp {{number_format($walletTransaction->amount,0,',','.')}}</h3>
                         </div>
 
+                        @if ($walletTransaction->is_paid)
                         <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-green-500 text-white">
                             PAID
                         </span>
-
-                        <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-orange-500 text-white">
-                            PENDING
-                        </span> 
+                        @else
+                            <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-orange-500 text-white">
+                                PENDING
+                            </span> 
+                        @endif  
 
                         <div>
                             <p class="text-slate-500 text-sm">Date</p>
-                            <h3 class="text-indigo-950 text-xl font-bold">12 Jan 2024</h3>
+                            <h3 class="text-indigo-950 text-xl font-bold">{{$walletTransaction->created_at->format('d M Y')}}</h3>
                         </div>
                         <div class="">
-                            <p class="text-slate-500 text-sm">User</p>
-                            <h3 class="text-indigo-950 text-xl font-bold">brando</h3>
+                            <p class="text-slate-500 text-sm">Client</p>
+                            <h3 class="text-indigo-950 text-xl font-bold">{{$walletTransaction->user->name}}</h3>
                         </div>
                 </div>
 
