@@ -1,6 +1,6 @@
 
 
-## About GAWE APP
+## About GAWE APP HALIM
 
 GAWE APP is a web application built using Laravel 10, designed to streamline project management and collaboration between different roles. The application supports three primary roles:
 
